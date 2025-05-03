@@ -33,6 +33,7 @@ import {
   removeFollowUp
 } from '../../store/formBuilderSlice'
 import QuestionComponent from '../QuestionComponent'
+import AddQuestion from './AddQuestion'
 
 const FormBuilder = () => {
   const dispatch = useDispatch()
@@ -74,6 +75,7 @@ const FormBuilder = () => {
   }
   
   return (
+    <>
     <Box>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
         <Typography variant="h5">Form Builder</Typography>
@@ -88,7 +90,9 @@ const FormBuilder = () => {
       </Box>
 
       {(
-              questions.map((question, index) => (
+              questions
+              .filter(question => !question.followUpQ)
+              .map((question, index) => (
                 <QuestionComponent 
                   key={question.id} 
                   question={question} 
@@ -97,7 +101,7 @@ const FormBuilder = () => {
                   allQuestions={questions}
                 />
               ))
-            )}
+      )}
       
       <Droppable droppableId={`formBuilder-${uuidv4()}`}>
         {(provided) => (
@@ -136,42 +140,13 @@ const FormBuilder = () => {
           </Box>
         )}
       </Droppable>
-      
-      {/* Add Question Dialog */}
-      <Dialog open={questionDialog} onClose={handleQuestionDialogClose}>
-        <DialogTitle>Add New Question</DialogTitle>
-        <DialogContent>
-          <TextField
-            autoFocus
-            margin="dense"
-            label="Question Text"
-            fullWidth
-            variant="outlined"
-            value={newQuestion.text}
-            onChange={handleQuestionChange}
-            sx={{ mt: 1, mb: 2 }}
-          />
-          <FormControl fullWidth variant="outlined">
-            <InputLabel>Question Type</InputLabel>
-            <Select
-              value={newQuestion.type}
-              onChange={handleQuestionTypeChange}
-              label="Question Type"
-            >
-              <MenuItem value="objective">Objective (Single Choice)</MenuItem>
-              <MenuItem value="multi-select">Multi-Select</MenuItem>
-              <MenuItem value="subjective">Subjective (Text Answer)</MenuItem>
-            </Select>
-          </FormControl>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleQuestionDialogClose}>Cancel</Button>
-          <Button onClick={handleQuestionSubmit} variant="contained" color="primary">
-            Add Question
-          </Button>
-        </DialogActions>
-      </Dialog>
     </Box>
+    <AddQuestion 
+      openDialog={questionDialog} 
+      setOpenDialog={setQuestionDialog} 
+      followUpQ={true} />
+      </>
+
   )
 }
 

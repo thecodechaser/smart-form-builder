@@ -25,7 +25,7 @@ const LeftSidebar = ({ onItemClick }) => {
         </Typography>
       ) : (
         <List>
-          {questions.map((question, index) => (
+          {questions.filter(question => !question.followUpQ).map((question, index) => (
             <ListItem 
               key={question.id}
               className={`navigation-item ${activeQuestion === question.id ? 'active' : ''}`}

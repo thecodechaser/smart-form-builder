@@ -21,6 +21,7 @@ import {
 } from '@mui/material'
 import { Droppable } from 'react-beautiful-dnd'
 import AddIcon from '@mui/icons-material/Add'
+import RemoveIcon from '@mui/icons-material/Remove'
 import {
   addOptionGroup,
   addFollowUpQuestion,
@@ -169,6 +170,16 @@ const OptionItem = ({ question, allQuestions }) => {
                             >
                               Remove Follow-up
                             </Button>
+                          ) :
+                            selectedOptionId == option.id ? (
+                              <Button 
+                              size="small" 
+                              color="primary" 
+                              startIcon={<RemoveIcon />}
+                              onClick={() => setSelectedOptionId(null)}
+                            >
+                              Close Follow-up
+                            </Button>
                           ) : (
                             <Button 
                               size="small" 
@@ -183,7 +194,7 @@ const OptionItem = ({ question, allQuestions }) => {
                       </Box>
                       
                       {/* Follow-up Question */}
-                      {option.id === selectedOptionId && (
+                      {(option.id === selectedOptionId || option.followUpId) && (
                         <FollowUpQuestion question={question} option={option} allQuestions={allQuestions} />
                       )}
                     </Box>
@@ -208,6 +219,17 @@ const OptionItem = ({ question, allQuestions }) => {
                             >
                               Remove Follow-up
                             </Button>
+                          )
+                          :
+                            selectedOptionId == option.id ? (
+                            <Button 
+                              size="small" 
+                              color="primary" 
+                              startIcon={<RemoveIcon />}
+                              onClick={() => setSelectedOptionId(null)}
+                            >
+                              Close Follow-up
+                            </Button>
                           ) : (
                             <Button 
                               size="small" 
@@ -222,7 +244,7 @@ const OptionItem = ({ question, allQuestions }) => {
                       </Box>
                       
                       {/* Follow-up Question */}
-                      {option.id === selectedOptionId && (
+                      {(option.id === selectedOptionId || option.followUpId) && (
                        <FollowUpQuestion question={question} option={option} allQuestions={allQuestions} />
                       )}
                     </Box>

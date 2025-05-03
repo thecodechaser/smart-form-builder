@@ -16,10 +16,11 @@ const Bank = ({ onItemClick }) => {
   }
 
   useEffect(() => {   
+    console.log("hello")
     setSideBar(sidebar === 'options' ? 'questions' : 'options')
     setTimeout(() => {
       setSideBar(sidebar)
-    }, 1);
+    }, 1000);
    }
   , [])
 

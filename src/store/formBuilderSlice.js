@@ -53,6 +53,7 @@ const formBuilderSlice = createSlice({
           ...bankQuestion,
           id: uuidv4(),
           options: [],
+          followUpQ: false
         }
       } else {
         // Create new question
@@ -61,6 +62,7 @@ const formBuilderSlice = createSlice({
           text: questionText,
           type: questionType,
           options: [],
+          followUpQ: false
         }
       }
 
@@ -146,14 +148,15 @@ const formBuilderSlice = createSlice({
       saveToLocalStorage(state)
     },
     addFollowUpQuestion: (state, action) => {
-      const { questionId, optionId, followUpText, followUpType = 'objective' } = action.payload
+      const { questionId, optionId, questionText, questionType = 'objective' } = action.payload
       
       // Create new follow-up question
       const followUpQuestion = {
         id: uuidv4(),
-        text: followUpText,
-        type: followUpType,
+        text: questionText,
+        type: questionType,
         options: [],
+        followUpQ: true
       }
       
       // Add to questions list
@@ -210,7 +213,6 @@ const formBuilderSlice = createSlice({
     },
     handleDragEnd: (state, action) => {
       const { result } = action.payload
-      console.log(action)
       
       if (!result || !result.destination || !result.source || !result.draggableId) return
       
@@ -228,6 +230,7 @@ const formBuilderSlice = createSlice({
             text: bankQuestion.text,
             type: bankQuestion.type,
             options: [],
+            followUpQ: destination.droppableId.startsWith('formBuilder-followUp')
           }
           
           state.questions.push(newQuestion)
