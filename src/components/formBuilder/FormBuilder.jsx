@@ -21,6 +21,7 @@ import { Droppable } from 'react-beautiful-dnd'
 import AddIcon from '@mui/icons-material/Add'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
+import { v4 as uuidv4 } from 'uuid'
 import { useState } from 'react'
 import {
   addQuestion,
@@ -30,8 +31,8 @@ import {
   updateOption,
   addFollowUpQuestion,
   removeFollowUp
-} from '../store/formBuilderSlice'
-import QuestionComponent from './QuestionComponent'
+} from '../../store/formBuilderSlice'
+import QuestionComponent from '../QuestionComponent'
 
 const FormBuilder = () => {
   const dispatch = useDispatch()
@@ -85,8 +86,20 @@ const FormBuilder = () => {
           Add Question
         </Button>
       </Box>
+
+      {(
+              questions.map((question, index) => (
+                <QuestionComponent 
+                  key={question.id} 
+                  question={question} 
+                  index={index}
+                  isActive={activeQuestion === question.id}
+                  allQuestions={questions}
+                />
+              ))
+            )}
       
-      <Droppable droppableId="formBuilder">
+      <Droppable droppableId={`formBuilder-${uuidv4()}`}>
         {(provided) => (
           <Box
             {...provided.droppableProps}
@@ -98,39 +111,27 @@ const FormBuilder = () => {
               bgcolor: 'rgba(0,0,0,0.03)'
             }}
           >
-            {questions.length === 0 ? (
-              <Box 
-                className="drag-placeholder"
-                onClick={handleAddQuestion}
-                sx={{
-                  height: '150px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  cursor: 'pointer',
-                  border: '2px dashed',
-                  borderColor: 'primary.light',
-                  borderRadius: 2,
-                  p: 3
-                }}
-              >
-                <AddIcon sx={{ fontSize: 40, color: 'primary.main', mb: 1 }} />
-                <Typography variant="body1" color="primary">
-                  Click here or drag a question from the bank to add
-                </Typography>
-              </Box>
-            ) : (
-              questions.map((question, index) => (
-                <QuestionComponent 
-                  key={question.id} 
-                  question={question} 
-                  index={index}
-                  isActive={activeQuestion === question.id}
-                  allQuestions={questions}
-                />
-              ))
-            )}
+            <Box 
+              className="drag-placeholder"
+              onClick={handleAddQuestion}
+              sx={{
+                height: '150px',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                cursor: 'pointer',
+                border: '2px dashed',
+                borderColor: 'primary.light',
+                borderRadius: 2,
+                p: 3
+              }}
+            >
+              <AddIcon sx={{ fontSize: 40, color: 'primary.main', mb: 1 }} />
+              <Typography variant="body1" color="primary">
+                Click here or drag a question from the bank to add
+              </Typography>
+            </Box>
             {provided.placeholder}
           </Box>
         )}

@@ -210,13 +210,15 @@ const formBuilderSlice = createSlice({
     },
     handleDragEnd: (state, action) => {
       const { result } = action.payload
+      console.log(action)
       
       if (!result || !result.destination || !result.source || !result.draggableId) return
       
       const { source, destination, draggableId } = result
       
       // Handle dropping question from bank to form builder
-      if (source.droppableId === 'questionBank' && destination.droppableId === 'formBuilder') {
+
+      if (source.droppableId === 'questionBank' && destination.droppableId.startsWith('formBuilder')) {
         const bankId = draggableId.replace('bank-question-', '')
         const bankQuestion = QUESTION_BANK.find(q => q.id === bankId)
         
@@ -231,6 +233,21 @@ const formBuilderSlice = createSlice({
           state.questions.push(newQuestion)
           state.activeQuestion = newQuestion.id
           state.sidebarContent = 'options'
+
+          if(destination.droppableId.startsWith('formBuilder-followUp')) {
+            const parts = destination.droppableId.split('<=>') // ['formBuilder', 'followUp', questionId, optionId]
+
+            const questionId = parts[0].replace('formBuilder-followUp-', '')
+            const optionId = parts[1]
+
+            const question = state.questions.find(q => q.id === questionId)
+            if (question) {
+              const option = question.options.find(o => o.id === optionId)
+              if (option) {
+                option.followUpId = newQuestion.id
+              }
+            }
+          }
         }
       }
       

@@ -6,8 +6,8 @@ import PreviewIcon from '@mui/icons-material/Visibility'
 import EditIcon from '@mui/icons-material/Edit'
 import { toggleMode } from '../store/formBuilderSlice'
 import LeftSidebar from './LeftSidebar'
-import RightSidebar from './RightSidebar'
-import FormBuilder from './FormBuilder'
+import Bank from './bank/Bank'
+import FormBuilder from './formBuilder/FormBuilder'
 import FormPreview from './FormPreview'
 
 const Layout = () => {
@@ -99,7 +99,7 @@ const Layout = () => {
                   overflow: 'auto'
                 }}
               >
-                <RightSidebar />
+                <Bank />
               </Box>
             )}
           </>
@@ -122,11 +122,11 @@ const Layout = () => {
             {mode === 'edit' && (
               <Drawer
                 anchor="right"
-                open={rightDrawerOpen}
+                open={handleDragEnd}
                 onClose={toggleRightDrawer}
               >
                 <Box sx={{ width: 280 }}>
-                  <RightSidebar onItemClick={toggleRightDrawer} />
+                  <Bank onItemClick={toggleRightDrawer} />
                 </Box>
               </Drawer>
             )}
