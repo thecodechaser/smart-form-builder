@@ -3,6 +3,7 @@ import { Box, Typography, Tabs, Tab, Divider } from '@mui/material';
 import { setSidebarContent } from '../../store/formBuilderSlice';
 import QuestionBank from './QuestionBank';
 import OptionBank from './OptionBank';
+import { useEffect } from 'react';
 
 const Bank = ({ onItemClick }) => {
   const dispatch = useDispatch();
@@ -11,6 +12,10 @@ const Bank = ({ onItemClick }) => {
   const handleTabChange = (event, newValue) => {
     dispatch(setSidebarContent(newValue));
   };
+
+  useEffect(() => {
+    console.log(sidebarContent);
+  }, [sidebarContent]);
 
   return (
     <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>

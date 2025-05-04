@@ -1,6 +1,7 @@
 import { Box, Typography, Paper } from '@mui/material';
 import { Droppable, Draggable } from '@hello-pangea/dnd';
 import { QUESTION_BANK } from '../../data/bankData';
+import BlockIcon from '@mui/icons-material/Block';
 
 const QuestionBank = ({ onItemClick }) => {
   return (
@@ -38,6 +39,20 @@ const QuestionBank = ({ onItemClick }) => {
                     <Typography variant="caption" color="text.secondary">
                       Type: {question.type}
                     </Typography>
+
+                    {snapshot.isDragging &&
+                      !snapshot.draggingOver?.startsWith('formBuilder') &&
+                      snapshot.draggingOver != null && (
+                        <BlockIcon
+                          sx={{
+                            position: 'absolute',
+                            top: 8,
+                            right: 8,
+                            color: 'red',
+                            fontSize: 24,
+                          }}
+                        />
+                      )}
                   </Paper>
                 )}
               </Draggable>
