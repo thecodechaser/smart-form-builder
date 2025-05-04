@@ -140,22 +140,70 @@ const formBuilderSlice = createSlice({
       }
       saveToLocalStorage(state);
     },
+    // updateOptionGroup: (state, action) => {
+    //   const { questionId, options, isMultiSelect } = action.payload;
+    //   const question = state.questions.find((q) => q.id === questionId);
+
+    //   if (question && options) {
+    //     const newOptions = options.map((option) => ({
+    //       id: uuidv4(),
+    //       text: option,
+    //       followUpId: null,
+    //     }));
+    //     question.options = newOptions;
+    //   }
+
+    //   if (isMultiSelect !== undefined) {
+    //     question.type = isMultiSelect ? 'multi-select' : 'objective';
+    //   }
+    //   state.sidebarContent = 'questions';
+    //   state.activeOptionGroup = questionId;
+    //   saveToLocalStorage(state);
+    // },
+
     updateOptionGroup: (state, action) => {
       const { questionId, options, isMultiSelect } = action.payload;
       const question = state.questions.find((q) => q.id === questionId);
 
       if (question && options) {
-        const newOptions = options.map((option) => ({
-          id: uuidv4(),
-          text: option,
-          followUpId: null,
-        }));
-        question.options = newOptions;
+        const existingOptions = question.options || [];
+
+        const parsedOptions = options.map((optionStr) => {
+          const [text, id] = optionStr.split('<=>');
+          return { text, id: id || null };
+        });
+
+        const updatedOptions = [];
+
+        parsedOptions.forEach(({ text, id }) => {
+          if (id) {
+            const existing = existingOptions.find((opt) => opt.id === id);
+            if (existing) {
+              existing.text = text;
+              updatedOptions.push(existing);
+            } else {
+              updatedOptions.push({
+                id: uuidv4(),
+                text,
+                followUpId: null,
+              });
+            }
+          } else {
+            updatedOptions.push({
+              id: uuidv4(),
+              text,
+              followUpId: null,
+            });
+          }
+        });
+
+        question.options = updatedOptions;
       }
 
       if (isMultiSelect !== undefined) {
         question.type = isMultiSelect ? 'multi-select' : 'objective';
       }
+
       state.sidebarContent = 'questions';
       state.activeOptionGroup = questionId;
       saveToLocalStorage(state);

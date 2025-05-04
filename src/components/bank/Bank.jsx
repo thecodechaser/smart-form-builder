@@ -13,10 +13,6 @@ const Bank = ({ onItemClick }) => {
     dispatch(setSidebarContent(newValue));
   };
 
-  useEffect(() => {
-    console.log(sidebarContent);
-  }, [sidebarContent]);
-
   return (
     <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <Box
