@@ -211,8 +211,9 @@ const formBuilderSlice = createSlice({
       }
       saveToLocalStorage(state)
     },
-    toggleMode: (state) => {
-      state.mode = state.mode === 'edit' ? 'preview' : 'edit'
+    toggleMode: (state, action) => {
+      if(action.payload) state.mode = action.payload
+      else state.mode = state.mode === 'edit' ? 'preview' : 'edit'
     },
     setSidebarContent: (state, action) => {
       state.sidebarContent = action.payload
