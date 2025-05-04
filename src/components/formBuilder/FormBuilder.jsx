@@ -75,7 +75,7 @@ const FormBuilder = () => {
                   className="drag-placeholder"
                   onClick={handleAddQuestion}
                   sx={{
-                    height: '150px',
+                    height: '120px',
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'center',
@@ -88,7 +88,7 @@ const FormBuilder = () => {
                   }}
                 >
                   <AddIcon
-                    sx={{ fontSize: 40, color: 'primary.main', mb: 1 }}
+                    sx={{ fontSize: 30, color: 'primary.main', mb: 1 }}
                   />
                   <Typography variant="body1" color="primary">
                     Click here or drag a question from the bank to add
