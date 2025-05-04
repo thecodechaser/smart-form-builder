@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import { Droppable } from '@hello-pangea/dnd';
-import AddOption from './AddOption';
+import AddOrEditOption from './AddOrEditOption';
 
 const OptionPlaceholder = ({ question }) => {
   const [optionDialog, setOptionDialog] = useState(false);
@@ -39,7 +39,7 @@ const OptionPlaceholder = ({ question }) => {
         )}
       </Droppable>
 
-      <AddOption
+      <AddOrEditOption
         question={question}
         optionDialog={optionDialog}
         setOptionDialog={setOptionDialog}

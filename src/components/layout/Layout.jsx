@@ -133,7 +133,7 @@ const Layout = () => {
             {mode === 'edit' && (
               <Drawer
                 anchor="right"
-                open={handleDragEnd}
+                open={rightDrawerOpen}
                 onClose={toggleRightDrawer}
               >
                 <Box sx={{ width: 280 }}>

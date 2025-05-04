@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import {
   Typography,
@@ -11,12 +11,27 @@ import {
   FormControlLabel,
   Checkbox,
 } from '@mui/material';
-import { addOptionGroup } from '../../../store/formBuilderSlice';
+import {
+  addOptionGroup,
+  updateOptionGroup,
+} from '../../../store/formBuilderSlice';
 
-const AddOption = ({ question, optionDialog, setOptionDialog }) => {
+const AddOrEditOption = ({
+  editMode = false,
+  editOptions,
+  question,
+  optionDialog,
+  setOptionDialog,
+}) => {
   const dispatch = useDispatch();
   const [optionsInput, setOptionsInput] = useState('');
   const [editQuestionType, setEditQuestionType] = useState(question.type);
+
+  useEffect(() => {
+    if (editMode && editOptions) {
+      setOptionsInput(editOptions.map((opt) => opt.text).join('\n'));
+    }
+  }, [editMode, editOptions]);
 
   const handleOptionDialogClose = () => {
     setOptionsInput('');
@@ -38,14 +53,25 @@ const AddOption = ({ question, optionDialog, setOptionDialog }) => {
     const isMultiSelect = editQuestionType === 'multi-select';
     if (optionsInput.trim()) {
       const options = optionsInput.split('\n').filter((opt) => opt.trim());
+      
       if (options.length > 0) {
-        dispatch(
-          addOptionGroup({
-            questionId: question.id,
-            options,
-            isMultiSelect,
-          })
-        );
+        if (editMode) {
+          dispatch(
+            updateOptionGroup({
+              questionId: question.id,
+              options,
+              isMultiSelect,
+            })
+          );
+        } else {
+          dispatch(
+            addOptionGroup({
+              questionId: question.id,
+              options,
+              isMultiSelect,
+            })
+          );
+        }
         handleOptionDialogClose();
       }
     }
@@ -108,4 +134,4 @@ const AddOption = ({ question, optionDialog, setOptionDialog }) => {
   );
 };
 
-export default AddOption;
+export default AddOrEditOption;
