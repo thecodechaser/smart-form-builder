@@ -19,6 +19,7 @@ import LeftSidebar from '../navigation/LeftSidebar';
 import Bank from '../bank/Bank';
 import FormBuilder from '../formBuilder/FormBuilder';
 import FormPreview from '../formPreview/FormPreview';
+import Footer from './Footer';
 
 const Layout = () => {
   const dispatch = useDispatch();
@@ -143,6 +144,8 @@ const Layout = () => {
           </>
         )}
       </Box>
+
+      <Footer />
     </Box>
   );
 };
