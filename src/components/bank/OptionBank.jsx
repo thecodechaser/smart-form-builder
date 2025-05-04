@@ -1,20 +1,17 @@
-import { Box, Typography, Paper } from '@mui/material'
-import { Droppable, Draggable } from '@hello-pangea/dnd'
-import { OPTION_BANK } from '../../data/bankData'
+import { Box, Typography, Paper } from '@mui/material';
+import { Droppable, Draggable } from '@hello-pangea/dnd';
+import { OPTION_BANK } from '../../data/bankData';
 
 const OptionBank = ({ onItemClick }) => {
   return (
     <Box>
       <Droppable droppableId="optionBank" isDropDisabled={true}>
         {(provided) => (
-          <Box
-            {...provided.droppableProps}
-            ref={provided.innerRef}
-          >
+          <Box {...provided.droppableProps} ref={provided.innerRef}>
             {OPTION_BANK.map((optionGroup, index) => (
-              <Draggable 
-                key={optionGroup.id} 
-                draggableId={`bank-option-${optionGroup.id}`} 
+              <Draggable
+                key={optionGroup.id}
+                draggableId={`bank-option-${optionGroup.id}`}
                 index={index}
               >
                 {(provided, snapshot) => (
@@ -24,14 +21,14 @@ const OptionBank = ({ onItemClick }) => {
                     {...provided.dragHandleProps}
                     className={`bank-item ${snapshot.isDragging ? 'dragging' : ''}`}
                     elevation={snapshot.isDragging ? 3 : 1}
-                    sx={{ 
+                    sx={{
                       mb: 2,
                       p: 2,
                       transition: 'all 0.2s ease',
                       '&:hover': {
                         boxShadow: 3,
-                        transform: 'translateY(-2px)'
-                      }
+                        transform: 'translateY(-2px)',
+                      },
                     }}
                     onClick={onItemClick}
                   >
@@ -40,18 +37,18 @@ const OptionBank = ({ onItemClick }) => {
                     </Typography>
                     <Box sx={{ mt: 1 }}>
                       {optionGroup.options.map((option, i) => (
-                        <Typography 
-                          key={i} 
-                          variant="body2" 
+                        <Typography
+                          key={i}
+                          variant="body2"
                           color="text.secondary"
-                          sx={{ 
-                            display: 'inline-block', 
+                          sx={{
+                            display: 'inline-block',
                             mr: 1,
                             bgcolor: 'rgba(0,0,0,0.05)',
                             px: 1,
                             py: 0.5,
                             borderRadius: 1,
-                            mt: 0.5
+                            mt: 0.5,
                           }}
                         >
                           {option}
@@ -67,7 +64,7 @@ const OptionBank = ({ onItemClick }) => {
         )}
       </Droppable>
     </Box>
-  )
-}
+  );
+};
 
-export default OptionBank
+export default OptionBank;

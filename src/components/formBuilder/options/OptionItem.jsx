@@ -1,56 +1,45 @@
-import { useDispatch } from 'react-redux'
-import { 
-  Box, 
-  Typography,  
-  TextField, 
-  Button,
-} from '@mui/material'
-import {
-  removeOptionGroup
-} from '../../../store/formBuilderSlice'
-import OptionPlaceholder from './OptionPlaceholder'
-import OptionValues from './OptionValues'
+import { useDispatch } from 'react-redux';
+import { Box, Typography, TextField, Button } from '@mui/material';
+import { removeOptionGroup } from '../../../store/formBuilderSlice';
+import OptionPlaceholder from './OptionPlaceholder';
+import OptionValues from './OptionValues';
 
 const OptionItem = ({ question, followUpOption }) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const handleRemoveOption = () => {  
-    dispatch(removeOptionGroup({
-      questionId: question.id,
-      
-    }))
-  }
-  
+  const handleRemoveOption = () => {
+    dispatch(
+      removeOptionGroup({
+        questionId: question.id,
+      })
+    );
+  };
+
   return (
     <>
-      {/* Options Section */}
       {question.type !== 'subjective' && (
         <Box sx={{ mt: 3 }}>
           <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-            Options:  {
-              question.options.length > 0 && (
-              <Button 
-                                size="small" 
-                                color="error" 
-                                onClick={() => handleRemoveOption()}
-                              >
-                                Remove Option
-                              </Button>)
-}
+            Options:{' '}
+            {question.options.length > 0 && (
+              <Button
+                size="small"
+                color="error"
+                onClick={() => handleRemoveOption()}
+              >
+                Remove Option
+              </Button>
+            )}
           </Typography>
-          
-          {question.options.length === 0 ? 
-          (
 
+          {question.options.length === 0 ? (
             <OptionPlaceholder question={question} />
           ) : (
-
             <OptionValues question={question} followUpOption={followUpOption} />
           )}
         </Box>
       )}
-      
-      {/* Subjective Question */}
+
       {question.type === 'subjective' && (
         <Box sx={{ mt: 3 }}>
           <TextField
@@ -63,8 +52,8 @@ const OptionItem = ({ question, followUpOption }) => {
           />
         </Box>
       )}
-</>
-  )
-}
+    </>
+  );
+};
 
-export default OptionItem
+export default OptionItem;

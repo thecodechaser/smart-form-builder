@@ -1,20 +1,17 @@
-import { Box, Typography, Paper } from '@mui/material'
-import { Droppable, Draggable } from '@hello-pangea/dnd'
-import { QUESTION_BANK } from '../../data/bankData'
+import { Box, Typography, Paper } from '@mui/material';
+import { Droppable, Draggable } from '@hello-pangea/dnd';
+import { QUESTION_BANK } from '../../data/bankData';
 
 const QuestionBank = ({ onItemClick }) => {
   return (
     <Box>
       <Droppable droppableId="questionBank" isDropDisabled={true}>
         {(provided) => (
-          <Box
-            {...provided.droppableProps}
-            ref={provided.innerRef}
-          >
+          <Box {...provided.droppableProps} ref={provided.innerRef}>
             {QUESTION_BANK.map((question, index) => (
-              <Draggable 
-                key={question.id} 
-                draggableId={`bank-question-${question.id}`} 
+              <Draggable
+                key={question.id}
+                draggableId={`bank-question-${question.id}`}
                 index={index}
               >
                 {(provided, snapshot) => (
@@ -24,14 +21,14 @@ const QuestionBank = ({ onItemClick }) => {
                     {...provided.dragHandleProps}
                     className={`bank-item ${snapshot.isDragging ? 'dragging' : ''}`}
                     elevation={snapshot.isDragging ? 3 : 1}
-                    sx={{ 
+                    sx={{
                       mb: 2,
                       p: 2,
                       transition: 'all 0.2s ease',
                       '&:hover': {
                         boxShadow: 3,
-                        transform: 'translateY(-2px)'
-                      }
+                        transform: 'translateY(-2px)',
+                      },
                     }}
                     onClick={onItemClick}
                   >
@@ -50,7 +47,7 @@ const QuestionBank = ({ onItemClick }) => {
         )}
       </Droppable>
     </Box>
-  )
-}
+  );
+};
 
-export default QuestionBank
+export default QuestionBank;

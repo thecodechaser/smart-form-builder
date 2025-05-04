@@ -1,20 +1,20 @@
-import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import { DragDropContext } from '@hello-pangea/dnd'
-import { Box } from '@mui/material'
-import Layout from './components/layout/Layout'
-import { loadFormData, handleDragEnd } from './store/formBuilderSlice'
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { DragDropContext } from '@hello-pangea/dnd';
+import { Box } from '@mui/material';
+import Layout from './components/layout/Layout';
+import { loadFormData, handleDragEnd } from './store/formBuilderSlice';
 
 function App() {
-  const dispatch = useDispatch()
-  
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(loadFormData())
-  }, [dispatch])
+    dispatch(loadFormData());
+  }, [dispatch]);
 
   const onDragEnd = (result) => {
-    dispatch(handleDragEnd({ result }))
-  }
+    dispatch(handleDragEnd({ result }));
+  };
 
   return (
     <Box className="app-container">
@@ -22,7 +22,7 @@ function App() {
         <Layout />
       </DragDropContext>
     </Box>
-  )
+  );
 }
 
-export default App
+export default App;

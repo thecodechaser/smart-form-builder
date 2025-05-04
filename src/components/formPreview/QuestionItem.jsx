@@ -6,30 +6,37 @@ import {
   Checkbox,
   FormGroup,
   TextField,
-  Box
-} from '@mui/material'
+  Box,
+} from '@mui/material';
 
-const QuestionItem = ({ question, questions, responses, onChange, index, level = 0 }) => {
-  const response = responses[question.id] || ''
-  const indent = level * 3
+const QuestionItem = ({
+  question,
+  questions,
+  responses,
+  onChange,
+  index,
+  level = 0,
+}) => {
+  const response = responses[question.id] || '';
+  const indent = level * 3;
 
   const getFollowUp = (optId) => {
-    const option = question.options?.find(o => o.id === optId)
-    if (!option?.followUpId) return null
-    return questions.find(q => q.id === option.followUpId) || null
-  }
+    const option = question.options?.find((o) => o.id === optId);
+    if (!option?.followUpId) return null;
+    return questions.find((q) => q.id === option.followUpId) || null;
+  };
 
   const shouldShowFollowUp = (optId) => {
-    if (question.type === 'objective') return response === optId
-    if (question.type === 'multi-select') return response.includes(optId)
-    return false
-  }
+    if (question.type === 'objective') return response === optId;
+    if (question.type === 'multi-select') return response.includes(optId);
+    return false;
+  };
 
   const renderFollowUp = (optId) => {
-    const followUp = getFollowUp(optId)
-    if (!followUp) return null
-    if (level >= 1) return null // only allow one level of follow-up
-    if (!shouldShowFollowUp(optId)) return null
+    const followUp = getFollowUp(optId);
+    if (!followUp) return null;
+    if (level >= 1) return null;
+    if (!shouldShowFollowUp(optId)) return null;
 
     return (
       <QuestionItem
@@ -40,8 +47,8 @@ const QuestionItem = ({ question, questions, responses, onChange, index, level =
         onChange={onChange}
         level={level + 1}
       />
-    )
-  }
+    );
+  };
 
   return (
     <Box sx={{ pl: indent }}>
@@ -58,9 +65,13 @@ const QuestionItem = ({ question, questions, responses, onChange, index, level =
           value={response}
           onChange={(e) => onChange(question.id, e.target.value, 'objective')}
         >
-          {question.options.map(opt => (
+          {question.options.map((opt) => (
             <Box key={opt.id} sx={{ ml: 2 }}>
-              <FormControlLabel value={opt.id} control={<Radio />} label={opt.text} />
+              <FormControlLabel
+                value={opt.id}
+                control={<Radio />}
+                label={opt.text}
+              />
               {renderFollowUp(opt.id)}
             </Box>
           ))}
@@ -69,13 +80,15 @@ const QuestionItem = ({ question, questions, responses, onChange, index, level =
 
       {question.type === 'multi-select' && (
         <FormGroup>
-          {question.options.map(opt => (
+          {question.options.map((opt) => (
             <Box key={opt.id} sx={{ ml: 2 }}>
               <FormControlLabel
                 control={
                   <Checkbox
                     checked={(response || []).includes(opt.id)}
-                    onChange={() => onChange(question.id, opt.id, 'multi-select')}
+                    onChange={() =>
+                      onChange(question.id, opt.id, 'multi-select')
+                    }
                   />
                 }
                 label={opt.text}
@@ -98,7 +111,7 @@ const QuestionItem = ({ question, questions, responses, onChange, index, level =
         />
       )}
     </Box>
-  )
-}
+  );
+};
 
-export default QuestionItem
+export default QuestionItem;
