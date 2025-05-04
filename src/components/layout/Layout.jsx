@@ -57,7 +57,7 @@ const Layout = () => {
             </IconButton>
           )}
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Form Builder
+            Smart Form Builder
           </Typography>
           <Button
             color="inherit"
