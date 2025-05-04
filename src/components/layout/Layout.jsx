@@ -84,7 +84,7 @@ const Layout = () => {
               <LeftSidebar />
             </Box>
             
-            <Box sx={{ flexGrow: 1, p: 3, overflow: 'auto' }}>
+            <Box sx={{ flexGrow: 1, overflow: 'auto' }}>
               {mode === 'edit' ? <FormBuilder /> : <FormPreview />}
             </Box>
             

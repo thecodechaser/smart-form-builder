@@ -5,11 +5,11 @@ import {
   Typography,  
   IconButton
 } from '@mui/material'
-import { Droppable } from 'react-beautiful-dnd'
+import { Droppable } from '@hello-pangea/dnd'
 import AddIcon from '@mui/icons-material/Add'
 import EditIcon from '@mui/icons-material/Edit'
 import AddOrEditQuestion from './AddOrEditQuestion'
-import OptionItem from './OptionItem'
+import OptionItem from '../options/OptionItem'
 
 const FollowUpQuestion = ({ question, option }) => {
   const [followUpDialog, setFollowUpDialog] = useState(false)

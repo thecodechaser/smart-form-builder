@@ -16,7 +16,7 @@ import {
   updateQuestion,
   addQuestion,
   addFollowUpQuestion,
-} from '../../store/formBuilderSlice'
+} from '../../../store/formBuilderSlice'
 
 const AddOrEditQuestion = ({ editMode = false, editQuestion, parentQuestion, option, openDialog, setOpenDialog, followUpQ  }) => {
   const dispatch = useDispatch()

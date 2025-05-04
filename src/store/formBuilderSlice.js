@@ -90,6 +90,8 @@ const formBuilderSlice = createSlice({
           const followUpIds = options.map(option => option.followUpId).filter(id => id !== null);
           const idsToRemove = [...followUpIds, question.id];
           state.questions = state.questions.filter(q => !idsToRemove.includes(q.id));
+        } else {
+          state.questions = state.questions.filter(q => q.id !== id);
         }
       }
       saveToLocalStorage(state)

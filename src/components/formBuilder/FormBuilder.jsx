@@ -4,12 +4,12 @@ import {
   Typography, 
   Button, 
 } from '@mui/material'
-import { Droppable } from 'react-beautiful-dnd'
+import { Droppable } from '@hello-pangea/dnd'
 import AddIcon from '@mui/icons-material/Add'
 import { v4 as uuidv4 } from 'uuid'
 import { useState } from 'react'
-import QuestionItem from './QuestionItem'
-import AddOrEditQuestion from './AddOrEditQuestion'
+import QuestionItem from './questions/QuestionItem'
+import AddOrEditQuestion from './questions/AddOrEditQuestion'
 
 const FormBuilder = () => {
   const { questions, activeQuestion } = useSelector(state => state.formBuilder)
@@ -21,8 +21,20 @@ const FormBuilder = () => {
   
   return (
     <>
-    <Box>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+      <Box  sx={{ 
+      position: 'sticky', 
+      top: 0, 
+      zIndex: 1, 
+      bgcolor: 'background.paper', 
+      px: 2, py: 2, 
+      borderLeft: '2px solid', 
+      borderRight: '2px solid', 
+      borderColor: 'primary.light', 
+      display: 'flex', 
+      justifyContent: 'space-between', 
+      alignItems: 'center' 
+    }}>
         <Typography variant="h5">Form Builder</Typography>
         <Button 
           variant="contained" 
@@ -34,6 +46,7 @@ const FormBuilder = () => {
         </Button>
       </Box>
 
+<Box sx={{ flexGrow: 1, overflowY: 'auto', px: 2, pt: 2 }}>
       {(
               questions
               .filter(question => !question.followUpQ)
@@ -84,6 +97,7 @@ const FormBuilder = () => {
           </Box>
         )}
       </Droppable>
+      </Box>
     </Box>
     <AddOrEditQuestion 
       openDialog={questionDialog} 

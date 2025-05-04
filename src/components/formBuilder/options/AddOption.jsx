@@ -13,7 +13,7 @@ import {
 } from '@mui/material'
 import {
   addOptionGroup,
-} from '../../store/formBuilderSlice'
+} from '../../../store/formBuilderSlice'
 
 const AddOption = ({ question, optionDialog, setOptionDialog }) => {
   const dispatch = useDispatch()

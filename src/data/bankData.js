@@ -39,7 +39,57 @@ export const QUESTION_BANK = [
     id: 'q8',
     text: 'Please share any additional comments or feedback.',
     type: 'subjective'
-  }
+  },
+  {
+    id: 'q9',
+    text: 'Did you feel well-informed about the interview process beforehand?',
+    type: 'objective'
+  },
+  {
+    id: 'q10',
+    text: 'How clearly was the job role and its responsibilities explained to you?',
+    type: 'objective'
+  },
+  {
+    id: 'q11',
+    text: 'What part of the interview process did you find most challenging or unexpected?',
+    type: 'subjective'
+  },
+  {
+    id: 'q12',
+    text: 'How would you describe the communication from the company during the scheduling process?',
+    type: 'subjective'
+  },
+  {
+    id: 'q13',
+    text: 'Which areas of the interview do you think could be improved?',
+    type: 'multi-select'
+  },
+  {
+    id: 'q14',
+    text: 'Were you given an opportunity to ask questions at the end of the interview?',
+    type: 'objective'
+  },
+  {
+    id: 'q15',
+    text: 'How likely are you to consider working with Xane AI in the future?',
+    type: 'objective'
+  },
+  {
+    id: 'q16',
+    text: 'Which of the following best describes your expectations from a company culture?',
+    type: 'multi-select'
+  },
+  {
+    id: 'q17',
+    text: 'Is there anything that stood out to you in a positive way during the interview?',
+    type: 'subjective'
+  },
+  {
+    id: 'q18',
+    text: 'Was the duration of the interview appropriate for the topics discussed?',
+    type: 'objective'
+  }  
 ]
 
 // Option bank data
@@ -62,7 +112,7 @@ export const OPTION_BANK = [
   {
     id: 'o4',
     name: 'Feedback Options',
-    options: ['Keep it up', 'Get a life, loser']
+    options: ['Keep it up', 'Get a life', 'loser']
   },
   {
     id: 'o5',

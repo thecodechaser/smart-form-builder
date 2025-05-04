@@ -1,20 +1,15 @@
 import { Box, Typography, Paper } from '@mui/material'
-import { Droppable, Draggable } from 'react-beautiful-dnd'
+import { Droppable, Draggable } from '@hello-pangea/dnd'
 import { OPTION_BANK } from '../../data/bankData'
 
 const OptionBank = ({ onItemClick }) => {
   return (
     <Box>
-      <Typography variant="subtitle2" sx={{ mb: 1 }}>
-        Drag an option group to add it to a question
-      </Typography>
-      
       <Droppable droppableId="optionBank" isDropDisabled={true}>
         {(provided) => (
           <Box
             {...provided.droppableProps}
             ref={provided.innerRef}
-            sx={{ mt: 2 }}
           >
             {OPTION_BANK.map((optionGroup, index) => (
               <Draggable 

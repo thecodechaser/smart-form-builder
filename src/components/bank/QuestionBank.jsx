@@ -1,20 +1,15 @@
 import { Box, Typography, Paper } from '@mui/material'
-import { Droppable, Draggable } from 'react-beautiful-dnd'
+import { Droppable, Draggable } from '@hello-pangea/dnd'
 import { QUESTION_BANK } from '../../data/bankData'
 
 const QuestionBank = ({ onItemClick }) => {
   return (
     <Box>
-      <Typography variant="subtitle2" sx={{ mb: 1 }}>
-        Drag a question to add it to your form
-      </Typography>
-      
       <Droppable droppableId="questionBank" isDropDisabled={true}>
         {(provided) => (
           <Box
             {...provided.droppableProps}
             ref={provided.innerRef}
-            sx={{ mt: 2 }}
           >
             {QUESTION_BANK.map((question, index) => (
               <Draggable 

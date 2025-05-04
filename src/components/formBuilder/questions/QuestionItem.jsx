@@ -11,8 +11,8 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import {
   deleteQuestion,
   setActiveQuestion
-} from '../../store/formBuilderSlice'
-import OptionItem from './OptionItem'
+} from '../../../store/formBuilderSlice'
+import OptionItem from '../options/OptionItem'
 import AddOrEditQuestion from './AddOrEditQuestion'
 
 const QuestionItem = ({ question, index, isActive }) => {
