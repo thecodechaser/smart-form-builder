@@ -138,6 +138,26 @@ const formBuilderSlice = createSlice({
       }
       saveToLocalStorage(state);
     },
+    updateOptionGroup: (state, action) => {
+      const { questionId, options, isMultiSelect } = action.payload;
+      const question = state.questions.find((q) => q.id === questionId);
+
+      if (question && options) {
+        const newOptions = options.map((option) => ({
+          id: uuidv4(),
+          text: option,
+          followUpId: null,
+        }));
+        question.options = newOptions;
+      }
+
+      if (isMultiSelect !== undefined) {
+        question.type = isMultiSelect ? 'multi-select' : 'objective';
+      }
+
+      state.activeOptionGroup = questionId;
+      saveToLocalStorage(state);
+    },
     removeOptionGroup: (state, action) => {
       const { questionId } = action.payload;
       const question = state.questions.find((q) => q.id === questionId);
@@ -306,6 +326,7 @@ export const {
   setSidebarContent,
   handleDragEnd,
   removeOptionGroup,
+  updateOptionGroup,
 } = formBuilderSlice.actions;
 
 export default formBuilderSlice.reducer;
