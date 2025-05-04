@@ -3,13 +3,18 @@ import { useDispatch } from 'react-redux';
 import { DragDropContext } from '@hello-pangea/dnd';
 import { Box } from '@mui/material';
 import Layout from './components/layout/Layout';
-import { loadFormData, handleDragEnd } from './store/formBuilderSlice';
+import {
+  loadFormData,
+  handleDragEnd,
+  setSidebarContent,
+} from './store/formBuilderSlice';
 
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(loadFormData());
+    dispatch(setSidebarContent('questions'));
   }, [dispatch]);
 
   const onDragEnd = (result) => {

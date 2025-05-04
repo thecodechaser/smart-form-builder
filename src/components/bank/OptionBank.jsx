@@ -1,6 +1,7 @@
 import { Box, Typography, Paper } from '@mui/material';
 import { Droppable, Draggable } from '@hello-pangea/dnd';
 import { OPTION_BANK } from '../../data/bankData';
+import BlockIcon from '@mui/icons-material/Block';
 
 const OptionBank = ({ onItemClick }) => {
   return (
@@ -55,6 +56,20 @@ const OptionBank = ({ onItemClick }) => {
                         </Typography>
                       ))}
                     </Box>
+
+                    {snapshot.isDragging &&
+                      !snapshot.draggingOver?.startsWith('question') &&
+                      snapshot.draggingOver != null && (
+                        <BlockIcon
+                          sx={{
+                            position: 'absolute',
+                            top: 8,
+                            right: 8,
+                            color: 'red',
+                            fontSize: 24,
+                          }}
+                        />
+                      )}
                   </Paper>
                 )}
               </Draggable>

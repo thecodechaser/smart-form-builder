@@ -10,6 +10,7 @@ import {
   Button,
   FormControlLabel,
   Checkbox,
+  Box,
 } from '@mui/material';
 import {
   addOptionGroup,
@@ -52,8 +53,16 @@ const AddOrEditOption = ({
   const handleOptionSubmit = () => {
     const isMultiSelect = editQuestionType === 'multi-select';
     if (optionsInput.trim()) {
-      const options = optionsInput.split('\n').filter((opt) => opt.trim());
-      
+      const rawOptions = optionsInput
+        .split('\n')
+        .map((opt) => opt.trim())
+        .filter((opt) => opt);
+
+      const options = rawOptions.map((text, idx) => {
+        const id = editOptions?.[idx]?.id;
+        return id ? `${text}<=>${id}` : text;
+      });
+
       if (options.length > 0) {
         if (editMode) {
           dispatch(
@@ -81,9 +90,22 @@ const AddOrEditOption = ({
     <Dialog open={optionDialog} onClose={handleOptionDialogClose}>
       <DialogTitle>Add Options</DialogTitle>
       <DialogContent>
-        <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-          Enter each option on a new line
-        </Typography>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            mb: 2,
+          }}
+        >
+          <Typography variant="body2" color="text.secondary">
+            Enter each option on a new line
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Question Type: {question.type}
+          </Typography>
+        </Box>
+
         <TextField
           autoFocus
           margin="dense"
@@ -115,7 +137,7 @@ const AddOrEditOption = ({
                 onChange={handleIsMultiSelectChange}
               />
             }
-            label="Change question type to objective"
+            label="Change question type to single choice"
             sx={{ mt: 2 }}
           />
         )}
