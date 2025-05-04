@@ -1,21 +1,32 @@
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
 import { 
   Box, 
   Typography,  
+  IconButton
 } from '@mui/material'
 import { Droppable } from 'react-beautiful-dnd'
 import AddIcon from '@mui/icons-material/Add'
+import EditIcon from '@mui/icons-material/Edit'
 import AddQuestion from './AddQuestion'
+import OptionItem from './OptionItem'
 
-const FollowUpQuestion = ({ question, option, allQuestions }) => {
+const FollowUpQuestion = ({ question, option }) => {
   const [followUpDialog, setFollowUpDialog] = useState(false)
+  const [editMode, setEditMode] = useState(false)
+  const { questions } = useSelector(state => state.formBuilder)
+  
+  const handleEdit = () => {
+    setEditMode(true)
+    setFollowUpDialog(true)
+  }
   
   const handleAddQuestion = () => {
     setFollowUpDialog(true)
   }
   
-  const getFollowUpQuestion = (followUpId) => {
-    return allQuestions.find(q => q.id === followUpId)
+  const getFollowUpQuestion = () => {
+    return questions.find(q => q.id === option.followUpId)
   }
   
   return (
@@ -68,10 +79,11 @@ const FollowUpQuestion = ({ question, option, allQuestions }) => {
           </Typography>
           
           {(() => {
-            const followUpQuestion = getFollowUpQuestion(option.followUpId)
+            const followUpQuestion = getFollowUpQuestion()
             if (!followUpQuestion) return null
             
             return (
+              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
               <Box sx={{ p: 2, bgcolor: 'rgba(25, 118, 210, 0.05)', borderRadius: 1 }}>
                 <Typography variant="body1">
                   {followUpQuestion.text}
@@ -87,14 +99,22 @@ const FollowUpQuestion = ({ question, option, allQuestions }) => {
                   {followUpQuestion.type === 'objective' ? 'Single Choice' : 
                    followUpQuestion.type === 'multi-select' ? 'Multiple Choice' : 'Text Answer'}
                 </Typography>
+                <IconButton size="small" onClick={handleEdit}  color="primary">
+                <EditIcon />
+              </IconButton>
+              </Box>
               </Box>
             )
           })()}
+
+          <OptionItem question={getFollowUpQuestion()} followUpOption={true}/>
         </Box>
         )
       }
       <AddQuestion 
-      question={question} 
+      editMode={editMode}
+      editQuestion={getFollowUpQuestion()}
+      parentQuestion={question} 
       option={option} 
       openDialog={followUpDialog} 
       setOpenDialog={setFollowUpDialog} 

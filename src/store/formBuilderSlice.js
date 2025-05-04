@@ -72,11 +72,11 @@ const formBuilderSlice = createSlice({
       saveToLocalStorage(state)
     },
     updateQuestion: (state, action) => {
-      const { id, text, type } = action.payload
-      const question = state.questions.find(q => q.id === id)
+      const { questionId, questionText, questionType } = action.payload
+      const question = state.questions.find(q => q.id === questionId)
       if (question) {
-        question.text = text
-        if (type) question.type = type
+        question.text = questionText
+        if (questionType) question.type = questionType
       }
       saveToLocalStorage(state)
     },
@@ -135,6 +135,32 @@ const formBuilderSlice = createSlice({
       }
       saveToLocalStorage(state)
     },
+    removeOptionGroup: (state, action) => {
+      const { questionId, optionId } = action.payload
+      const question = state.questions.find(q => q.id === questionId)
+    
+      if (question) {
+        // Remove the option from the question's options array
+        question.options = []
+    
+        // If any other options have followUpId mapping to this option, clear them
+        // question.options = question.options.map(opt => {
+        //   if (opt.followUpId === optionId) {
+        //     return { ...opt, followUpId: null }
+        //   }
+        //   return opt
+        // })
+    
+        // Optionally: if the question has other follow-up mappings related to this option, clean them up here
+    
+        // Clear activeOptionGroup if it was this one
+        // if (state.activeOptionGroup === questionId && question.options.length === 0) {
+        //   state.activeOptionGroup = null
+        // }
+      }
+    
+      saveToLocalStorage(state)
+    },    
     updateOption: (state, action) => {
       const { questionId, optionId, text } = action.payload
       const question = state.questions.find(q => q.id === questionId)
@@ -292,7 +318,8 @@ export const {
   removeFollowUp, 
   toggleMode, 
   setSidebarContent,
-  handleDragEnd
+  handleDragEnd,
+  removeOptionGroup
 } = formBuilderSlice.actions
 
 export default formBuilderSlice.reducer

@@ -98,7 +98,6 @@ const FormBuilder = () => {
                   question={question} 
                   index={index}
                   isActive={activeQuestion === question.id}
-                  allQuestions={questions}
                 />
               ))
       )}
@@ -144,7 +143,7 @@ const FormBuilder = () => {
     <AddQuestion 
       openDialog={questionDialog} 
       setOpenDialog={setQuestionDialog} 
-      followUpQ={true} />
+      followUpQ={false} />
       </>
 
   )

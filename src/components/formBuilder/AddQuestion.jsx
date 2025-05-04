@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { 
   TextField, 
@@ -13,48 +13,66 @@ import {
   MenuItem,
 } from '@mui/material'
 import {
+  updateQuestion,
   addQuestion,
   addFollowUpQuestion,
 } from '../../store/formBuilderSlice'
 
-const AddQuestion = ({ question, option, openDialog, setOpenDialog, followUpQ  }) => {
+const AddQuestion = ({ editMode = false, editQuestion, parentQuestion, option, openDialog, setOpenDialog, followUpQ  }) => {
   const dispatch = useDispatch()
-  const [newQuestion, setNewQuestion] = useState({ text: '', type: 'objective' })
+  const [question, setQuestion] = useState({ text: '', type: 'objective' })
+
+  useEffect(() => {
+    if (editMode && editQuestion) {
+      setQuestion({
+        text: editQuestion.text || '',
+        type: editQuestion.type || 'objective',
+      });
+    }
+  }, [editMode, editQuestion]);
   
   const handleQuestionDialogClose = () => {
-    setNewQuestion({ text: '', type: 'objective' })
+    setQuestion({ text: '', type: 'objective' })
     setOpenDialog(false)
   }
   
   const handleQuestionChange = (e) => {
-    setNewQuestion({
-      ...newQuestion,
+    setQuestion({
+      ...question,
       text: e.target.value
     })
   }
   
   const handleQuestionTypeChange = (e) => {
-    setNewQuestion({
-      ...newQuestion,
+    setQuestion({
+      ...question,
       type: e.target.value
     })
   }
   
   const handleQuestionSubmit = () => {
-    const trimmedText = newQuestion.text.trim();
+    const trimmedText = question.text.trim();
     if (!trimmedText) return;
 
-    if (followUpQ && option?.id) {
+    if(editMode) {
+      dispatch(updateQuestion(
+        {
+          questionId: editQuestion.id,
+          questionText: trimmedText,
+          questionType: question.type
+        }
+      ))
+    } else if (followUpQ && option?.id) {
       dispatch(addFollowUpQuestion({
-        questionId: question.id,
+        questionId: parentQuestion.id,
         optionId: option.id,
         questionText: trimmedText,
-        questionType: newQuestion.type
+        questionType: question.type
       }));
     } else {
       dispatch(addQuestion({
         questionText: trimmedText,
-        questionType: newQuestion.type
+        questionType: question.type
       }));
     }
     handleQuestionDialogClose();
@@ -63,7 +81,7 @@ const AddQuestion = ({ question, option, openDialog, setOpenDialog, followUpQ  }
   
   return (
       <Dialog open={openDialog} onClose={handleQuestionDialogClose}>
-        <DialogTitle>Add {followUpQ ? 'Follow-up' : 'New'} Question</DialogTitle>
+        <DialogTitle>{editMode ? 'Edit' : 'Add'} {followUpQ ? 'Follow-up' : 'New'} Question</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
@@ -71,14 +89,14 @@ const AddQuestion = ({ question, option, openDialog, setOpenDialog, followUpQ  }
             label="Question Text"
             fullWidth
             variant="outlined"
-            value={newQuestion.text}
+            value={question.text}
             onChange={handleQuestionChange}
             sx={{ mt: 1, mb: 2 }}
           />
           <FormControl fullWidth variant="outlined">
             <InputLabel>Question Type</InputLabel>
             <Select
-              value={newQuestion.type}
+              value={question.type}
               onChange={handleQuestionTypeChange}
               label="Question Type"
             >
@@ -91,7 +109,7 @@ const AddQuestion = ({ question, option, openDialog, setOpenDialog, followUpQ  }
         <DialogActions>
           <Button onClick={handleQuestionDialogClose}>Cancel</Button>
           <Button onClick={handleQuestionSubmit} variant="contained" color="primary">
-            {followUpQ ? 'Add Follow-up' : 'Add Question'}
+           {editMode ? 'Save': 'Add'} {followUpQ ? 'Follow-up' : 'Question'}
           </Button>
         </DialogActions>
       </Dialog>
