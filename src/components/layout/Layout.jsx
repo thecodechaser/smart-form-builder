@@ -4,11 +4,11 @@ import { Box, Button, AppBar, Toolbar, Typography, useMediaQuery, useTheme, Icon
 import MenuIcon from '@mui/icons-material/Menu'
 import PreviewIcon from '@mui/icons-material/Visibility'
 import EditIcon from '@mui/icons-material/Edit'
-import { toggleMode } from '../store/formBuilderSlice'
-import LeftSidebar from './LeftSidebar'
-import Bank from './bank/Bank'
-import FormBuilder from './formBuilder/FormBuilder'
-import FormPreview from './FormPreview'
+import { toggleMode } from '../../store/formBuilderSlice'
+import LeftSidebar from '../navigation/LeftSidebar'
+import Bank from '../bank/Bank'
+import FormBuilder from '../formBuilder/FormBuilder'
+import FormPreview from '../formPreview/FormPreview'
 
 const Layout = () => {
   const dispatch = useDispatch()

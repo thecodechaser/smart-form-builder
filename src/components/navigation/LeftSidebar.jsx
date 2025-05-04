@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { Box, Typography, List, ListItem, ListItemText, ListItemIcon, Divider } from '@mui/material'
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark'
-import { setActiveQuestion } from '../store/formBuilderSlice'
+import { setActiveQuestion } from '../../store/formBuilderSlice'
 
 const LeftSidebar = ({ onItemClick }) => {
   const dispatch = useDispatch()

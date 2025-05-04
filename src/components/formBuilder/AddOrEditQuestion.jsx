@@ -18,7 +18,7 @@ import {
   addFollowUpQuestion,
 } from '../../store/formBuilderSlice'
 
-const AddQuestion = ({ editMode = false, editQuestion, parentQuestion, option, openDialog, setOpenDialog, followUpQ  }) => {
+const AddOrEditQuestion = ({ editMode = false, editQuestion, parentQuestion, option, openDialog, setOpenDialog, followUpQ  }) => {
   const dispatch = useDispatch()
   const [question, setQuestion] = useState({ text: '', type: 'objective' })
 
@@ -116,4 +116,4 @@ const AddQuestion = ({ editMode = false, editQuestion, parentQuestion, option, o
   )
 }
 
-export default AddQuestion
+export default AddOrEditQuestion

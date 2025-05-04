@@ -18,11 +18,11 @@ import {
 const AddOption = ({ question, optionDialog, setOptionDialog }) => {
   const dispatch = useDispatch()
   const [optionsInput, setOptionsInput] = useState('')
-  const [isMultiSelect, setIsMultiSelect] = useState(question.type === 'multi-select')
+  const [editQuestionType, setEditQuestionType] = useState(question.type)
   
   const handleOptionDialogClose = () => {
     setOptionsInput('')
-    setIsMultiSelect(question.type === 'multi-select')
+    setEditQuestionType(editQuestionType)
     setOptionDialog(false)
   }
   
@@ -31,10 +31,11 @@ const AddOption = ({ question, optionDialog, setOptionDialog }) => {
   }
   
   const handleIsMultiSelectChange = (e) => {
-    setIsMultiSelect(e.target.checked)
+    setEditQuestionType(editQuestionType === 'objective' ? 'multi-select' : 'objective')
   }
   
   const handleOptionSubmit = () => {
+    const isMultiSelect = editQuestionType === 'multi-select';
     if (optionsInput.trim()) {
       const options = optionsInput.split('\n').filter(opt => opt.trim())
       if (options.length > 0) {
@@ -67,16 +68,31 @@ const AddOption = ({ question, optionDialog, setOptionDialog }) => {
             onChange={handleOptionsInputChange}
             placeholder="Option 1&#10;Option 2&#10;Option 3"
           />
-          <FormControlLabel
+          {
+            question.type === 'objective' ? (
+              <FormControlLabel
             control={
               <Checkbox 
-                checked={isMultiSelect}
+                checked={editQuestionType === 'multi-select'}
                 onChange={handleIsMultiSelectChange}
               />
             }
-            label="Allow multiple options to be selected"
+            label="Change question type to multi-select"
             sx={{ mt: 2 }}
           />
+            ) : (
+              <FormControlLabel
+            control={
+              <Checkbox 
+                checked={editQuestionType === 'objective'}
+                onChange={handleIsMultiSelectChange}
+              />
+            }
+            label="Change question type to objective"
+            sx={{ mt: 2 }}
+          />
+            )
+          }
         </DialogContent>
         <DialogActions>
           <Button onClick={handleOptionDialogClose}>Cancel</Button>

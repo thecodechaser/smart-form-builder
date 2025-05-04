@@ -8,7 +8,7 @@ import {
 import { Droppable } from 'react-beautiful-dnd'
 import AddIcon from '@mui/icons-material/Add'
 import EditIcon from '@mui/icons-material/Edit'
-import AddQuestion from './AddQuestion'
+import AddOrEditQuestion from './AddOrEditQuestion'
 import OptionItem from './OptionItem'
 
 const FollowUpQuestion = ({ question, option }) => {
@@ -111,7 +111,7 @@ const FollowUpQuestion = ({ question, option }) => {
         </Box>
         )
       }
-      <AddQuestion 
+      <AddOrEditQuestion 
       editMode={editMode}
       editQuestion={getFollowUpQuestion()}
       parentQuestion={question} 

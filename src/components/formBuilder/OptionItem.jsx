@@ -35,6 +35,7 @@ const OptionItem = ({ question, followUpOption }) => {
   }
   
   const handleRemoveFollowUp = (optionId) => {
+    console.log("hello")
     dispatch(removeFollowUp({
       questionId: question.id,
       optionId

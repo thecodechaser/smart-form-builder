@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { DragDropContext } from 'react-beautiful-dnd'
 import { Box } from '@mui/material'
-import Layout from './components/Layout'
+import Layout from './components/layout/Layout'
 import { loadFormData, handleDragEnd } from './store/formBuilderSlice'
 
 function App() {

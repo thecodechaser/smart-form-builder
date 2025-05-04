@@ -11,11 +11,11 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import {
   deleteQuestion,
   setActiveQuestion
-} from '../store/formBuilderSlice'
-import OptionItem from './formBuilder/OptionItem'
-import AddQuestion from './formBuilder/AddQuestion'
+} from '../../store/formBuilderSlice'
+import OptionItem from './OptionItem'
+import AddOrEditQuestion from './AddOrEditQuestion'
 
-const QuestionComponent = ({ question, index, isActive }) => {
+const QuestionItem = ({ question, index, isActive }) => {
   const dispatch = useDispatch()
   const [editMode, setEditMode] = useState(false)
   
@@ -95,7 +95,7 @@ const QuestionComponent = ({ question, index, isActive }) => {
       </Box>
 
       <OptionItem question={question} />
-      <AddQuestion
+      <AddOrEditQuestion
       editMode={editMode}
       editQuestion={question}
       openDialog={editMode} 
@@ -104,4 +104,4 @@ const QuestionComponent = ({ question, index, isActive }) => {
   )
 }
 
-export default QuestionComponent
+export default QuestionItem

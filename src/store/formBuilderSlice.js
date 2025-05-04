@@ -8,8 +8,8 @@ const initialState = {
   questions: [],
   activeQuestion: null,
   activeOptionGroup: null,
-  mode: 'edit', // 'edit' or 'preview'
-  sidebarContent: 'questions', // 'questions' or 'options'
+  mode: 'edit',
+  sidebarContent: 'questions',
 }
 
 const loadFromLocalStorage = () => {
@@ -82,18 +82,15 @@ const formBuilderSlice = createSlice({
     },
     deleteQuestion: (state, action) => {
       const { id } = action.payload
-      state.questions = state.questions.filter(q => q.id !== id)
-      
-      // Also delete any follow-up questions that were connected to this question
-      state.questions.forEach(question => {
-        question.options = question.options.map(option => ({
-          ...option,
-          followUpId: option.followUpId === id ? null : option.followUpId
-        }))
-      })
-      
-      if (state.activeQuestion === id) {
-        state.activeQuestion = state.questions.length > 0 ? state.questions[0].id : null
+      const question = state.questions.find(q => q.id === id)
+
+      if (question) {
+        const options = question.options;
+        if (options.length > 0) {
+          const followUpIds = options.map(option => option.followUpId).filter(id => id !== null);
+          const idsToRemove = [...followUpIds, question.id];
+          state.questions = state.questions.filter(q => !idsToRemove.includes(q.id));
+        }
       }
       saveToLocalStorage(state)
     },
@@ -136,28 +133,10 @@ const formBuilderSlice = createSlice({
       saveToLocalStorage(state)
     },
     removeOptionGroup: (state, action) => {
-      const { questionId, optionId } = action.payload
+      const { questionId } = action.payload
       const question = state.questions.find(q => q.id === questionId)
     
-      if (question) {
-        // Remove the option from the question's options array
-        question.options = []
-    
-        // If any other options have followUpId mapping to this option, clear them
-        // question.options = question.options.map(opt => {
-        //   if (opt.followUpId === optionId) {
-        //     return { ...opt, followUpId: null }
-        //   }
-        //   return opt
-        // })
-    
-        // Optionally: if the question has other follow-up mappings related to this option, clean them up here
-    
-        // Clear activeOptionGroup if it was this one
-        // if (state.activeOptionGroup === questionId && question.options.length === 0) {
-        //   state.activeOptionGroup = null
-        // }
-      }
+      if (question) question.options = []
     
       saveToLocalStorage(state)
     },    
@@ -203,6 +182,7 @@ const formBuilderSlice = createSlice({
       saveToLocalStorage(state)
     },
     removeFollowUp: (state, action) => {
+      console.log(action)
       const { questionId, optionId } = action.payload
       const question = state.questions.find(q => q.id === questionId)
       

@@ -1,77 +1,22 @@
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { 
   Box, 
   Typography, 
   Button, 
-  TextField, 
-  IconButton, 
-  Paper, 
-  FormControl, 
-  InputLabel, 
-  Select, 
-  MenuItem,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  FormControlLabel,
-  Checkbox
 } from '@mui/material'
 import { Droppable } from 'react-beautiful-dnd'
 import AddIcon from '@mui/icons-material/Add'
-import DeleteIcon from '@mui/icons-material/Delete'
-import EditIcon from '@mui/icons-material/Edit'
 import { v4 as uuidv4 } from 'uuid'
 import { useState } from 'react'
-import {
-  addQuestion,
-  updateQuestion,
-  deleteQuestion,
-  addOptionGroup,
-  updateOption,
-  addFollowUpQuestion,
-  removeFollowUp
-} from '../../store/formBuilderSlice'
-import QuestionComponent from '../QuestionComponent'
-import AddQuestion from './AddQuestion'
+import QuestionItem from './QuestionItem'
+import AddOrEditQuestion from './AddOrEditQuestion'
 
 const FormBuilder = () => {
-  const dispatch = useDispatch()
   const { questions, activeQuestion } = useSelector(state => state.formBuilder)
   const [questionDialog, setQuestionDialog] = useState(false)
-  const [newQuestion, setNewQuestion] = useState({ text: '', type: 'objective' })
   
   const handleAddQuestion = () => {
     setQuestionDialog(true)
-  }
-  
-  const handleQuestionDialogClose = () => {
-    setQuestionDialog(false)
-    setNewQuestion({ text: '', type: 'objective' })
-  }
-  
-  const handleQuestionSubmit = () => {
-    if (newQuestion.text.trim()) {
-      dispatch(addQuestion({ 
-        questionText: newQuestion.text, 
-        questionType: newQuestion.type 
-      }))
-      handleQuestionDialogClose()
-    }
-  }
-  
-  const handleQuestionChange = (e) => {
-    setNewQuestion({
-      ...newQuestion,
-      text: e.target.value
-    })
-  }
-  
-  const handleQuestionTypeChange = (e) => {
-    setNewQuestion({
-      ...newQuestion,
-      type: e.target.value
-    })
   }
   
   return (
@@ -93,7 +38,7 @@ const FormBuilder = () => {
               questions
               .filter(question => !question.followUpQ)
               .map((question, index) => (
-                <QuestionComponent 
+                <QuestionItem 
                   key={question.id} 
                   question={question} 
                   index={index}
@@ -140,7 +85,7 @@ const FormBuilder = () => {
         )}
       </Droppable>
     </Box>
-    <AddQuestion 
+    <AddOrEditQuestion 
       openDialog={questionDialog} 
       setOpenDialog={setQuestionDialog} 
       followUpQ={false} />
