@@ -3,7 +3,6 @@ import { Box, Typography, Tabs, Tab, Divider } from '@mui/material';
 import { setSidebarContent } from '../../store/formBuilderSlice';
 import QuestionBank from './QuestionBank';
 import OptionBank from './OptionBank';
-import { useEffect } from 'react';
 
 const Bank = ({ onItemClick }) => {
   const dispatch = useDispatch();
