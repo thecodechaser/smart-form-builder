@@ -1,11 +1,11 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import { Provider } from 'react-redux'
-import { ThemeProvider, createTheme } from '@mui/material/styles'
-import CssBaseline from '@mui/material/CssBaseline'
-import App from './App'
-import './index.css'
-import store from './store'
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import { Provider } from 'react-redux';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import App from './App';
+import './index.css';
+import store from './store';
 
 const theme = createTheme({
   palette: {
@@ -19,7 +19,8 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+    fontFamily:
+      '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
   },
   shape: {
     borderRadius: 8,
@@ -33,7 +34,7 @@ const theme = createTheme({
       },
     },
   },
-})
+});
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -43,5 +44,5 @@ createRoot(document.getElementById('root')).render(
         <App />
       </ThemeProvider>
     </Provider>
-  </StrictMode>,
-)
+  </StrictMode>
+);
