@@ -88,7 +88,7 @@ const AddOrEditOption = ({
 
   return (
     <Dialog open={optionDialog} onClose={handleOptionDialogClose}>
-      <DialogTitle>Add Options</DialogTitle>
+      <DialogTitle>{`${editMode ? 'Update' : 'Add'} Options`}</DialogTitle>
       <DialogContent>
         <Box
           sx={{
@@ -149,7 +149,7 @@ const AddOrEditOption = ({
           variant="contained"
           color="primary"
         >
-          Add Options
+          {`${editMode ? 'Save' : 'Add'} Options`}
         </Button>
       </DialogActions>
     </Dialog>
