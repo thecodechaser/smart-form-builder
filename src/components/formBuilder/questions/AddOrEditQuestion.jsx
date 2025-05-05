@@ -93,7 +93,7 @@ const AddOrEditQuestion = ({
   return (
     <Dialog open={openDialog} onClose={handleQuestionDialogClose}>
       <DialogTitle>
-        {editMode ? 'Edit' : 'Add'} {followUpQ ? 'Follow-up' : 'New'} Question
+        {editMode ? 'Update' : 'Add'} {followUpQ ? 'Follow-up' : 'New'} Question
       </DialogTitle>
       <DialogContent>
         <TextField
