@@ -140,26 +140,6 @@ const formBuilderSlice = createSlice({
       }
       saveToLocalStorage(state);
     },
-    // updateOptionGroup: (state, action) => {
-    //   const { questionId, options, isMultiSelect } = action.payload;
-    //   const question = state.questions.find((q) => q.id === questionId);
-
-    //   if (question && options) {
-    //     const newOptions = options.map((option) => ({
-    //       id: uuidv4(),
-    //       text: option,
-    //       followUpId: null,
-    //     }));
-    //     question.options = newOptions;
-    //   }
-
-    //   if (isMultiSelect !== undefined) {
-    //     question.type = isMultiSelect ? 'multi-select' : 'objective';
-    //   }
-    //   state.sidebarContent = 'questions';
-    //   state.activeOptionGroup = questionId;
-    //   saveToLocalStorage(state);
-    // },
 
     updateOptionGroup: (state, action) => {
       const { questionId, options, isMultiSelect } = action.payload;
@@ -212,7 +192,13 @@ const formBuilderSlice = createSlice({
       const { questionId } = action.payload;
       const question = state.questions.find((q) => q.id === questionId);
 
-      if (question) question.options = [];
+      if (question) {
+        const followUpIds = question.options.map((option) => option.followUpId);
+        state.questions = state.questions.filter(
+          (q) => !followUpIds.includes(q.id)
+        );
+        question.options = [];
+      }
       state.sidebarContent = 'options';
       saveToLocalStorage(state);
     },
@@ -267,9 +253,9 @@ const formBuilderSlice = createSlice({
             });
 
             if (!isReferenced) {
-              state.questions = state.questions.filter(
-                (q) => q.id !== followUpId
-              );
+            state.questions = state.questions.filter(
+              (q) => q.id !== followUpId
+            );
             }
           }
         }
