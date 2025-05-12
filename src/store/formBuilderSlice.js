@@ -324,9 +324,9 @@ const formBuilderSlice = createSlice({
 
       if (
         source.droppableId === 'optionBank' &&
-        destination.droppableId.startsWith('question-')
+        destination.droppableId.startsWith('option-question-')
       ) {
-        const questionId = destination.droppableId.replace('question-', '');
+        const questionId = destination.droppableId.replace('option-question-', '');
         const bankId = draggableId.replace('bank-option-', '');
         const question = state.questions.find((q) => q.id === questionId);
 

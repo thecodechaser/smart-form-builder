@@ -25,7 +25,7 @@ const AddOrEditQuestion = ({
   option,
   openDialog,
   setOpenDialog,
-  followUpQ,
+  followUpQ = false,
 }) => {
   const dispatch = useDispatch();
   const [question, setQuestion] = useState({ text: '', type: 'objective' });

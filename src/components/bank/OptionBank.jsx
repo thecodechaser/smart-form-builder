@@ -58,7 +58,7 @@ const OptionBank = ({ onItemClick }) => {
                     </Box>
 
                     {snapshot.isDragging &&
-                      !snapshot.draggingOver?.startsWith('question') &&
+                      !snapshot.draggingOver?.startsWith('option-question') &&
                       snapshot.draggingOver != null && (
                         <BlockIcon
                           sx={{
