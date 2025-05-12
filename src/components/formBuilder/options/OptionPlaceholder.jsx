@@ -13,7 +13,7 @@ const OptionPlaceholder = ({ question }) => {
 
   return (
     <>
-      <Droppable droppableId={`question-${question.id}`}>
+      <Droppable droppableId={`option-question-${question.id}`}>
         {(provided) => (
           <Box
             {...provided.droppableProps}

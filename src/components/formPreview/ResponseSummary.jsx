@@ -27,8 +27,7 @@ const ResponseSummary = ({ questions, responses }) => {
         const shouldShowFollowUp =
           (question.type === 'objective' && response === opt.id) ||
           (question.type === 'multi-select' && response.includes(opt.id));
-
-        if (shouldShowFollowUp && opt.followUpId) {
+        if (shouldShowFollowUp && opt.followUpId && level < 2) {
           const followUpQ = questions.find((q) => q.id === opt.followUpId);
           if (followUpQ) {
             followUps.push(renderQuestion(followUpQ, level + 1));
@@ -50,16 +49,17 @@ const ResponseSummary = ({ questions, responses }) => {
     );
   };
 
-  const topLevelIds = new Set(questions.map((q) => q.id));
-  questions.forEach((q) => {
-    q.options?.forEach((opt) => {
-      if (opt.followUpId) topLevelIds.delete(opt.followUpId);
+  const getTopLevelQuestions = () => {
+    const followUps = new Set();
+    questions.forEach((q) => {
+      q.options?.forEach((o) => {
+        if (o.followUpId) followUps.add(o.followUpId);
+      });
     });
-  });
+    return questions.filter((q) => !followUps.has(q.id));
+  };
 
-  const topLevelQuestions = [...topLevelIds].map((id) =>
-    questions.find((q) => q.id === id)
-  );
+  const topLevelQuestions = getTopLevelQuestions();
 
   return (
     <Paper sx={{ p: 3 }}>

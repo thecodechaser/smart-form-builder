@@ -14,7 +14,7 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import { removeFollowUp } from '../../../store/formBuilderSlice';
 import FollowUpQuestion from '../questions/FollowUpQuestion';
 
-const OptionValues = ({ question, followUpOption }) => {
+const OptionValues = ({ question, followUpOption = false }) => {
   const dispatch = useDispatch();
   const [selectedOptionId, setSelectedOptionId] = useState(null);
 

@@ -103,7 +103,6 @@ const FormBuilder = () => {
       <AddOrEditQuestion
         openDialog={questionDialog}
         setOpenDialog={setQuestionDialog}
-        followUpQ={false}
       />
     </>
   );

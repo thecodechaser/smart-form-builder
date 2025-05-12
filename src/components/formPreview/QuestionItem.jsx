@@ -18,25 +18,23 @@ const QuestionItem = ({
   level = 0,
 }) => {
   const response = responses[question.id] || '';
-  const indent = level * 3;
-
-  const getFollowUp = (optId) => {
-    const option = question.options?.find((o) => o.id === optId);
-    if (!option?.followUpId) return null;
-    return questions.find((q) => q.id === option.followUpId) || null;
-  };
-
-  const shouldShowFollowUp = (optId) => {
-    if (question.type === 'objective') return response === optId;
-    if (question.type === 'multi-select') return response.includes(optId);
-    return false;
-  };
-
   const renderFollowUp = (optId) => {
+    
+    const getFollowUp = (id) => {
+      const option = question.options?.find((o) => o.id === id);
+      return option?.followUpId
+        ? questions.find((q) => q.id === option.followUpId) || null
+        : null;
+    };
+
+    const shouldShow = (id) => {
+      if (question.type === 'objective') return response === id;
+      if (question.type === 'multi-select') return response.includes(id);
+      return false;
+    };
+
     const followUp = getFollowUp(optId);
-    if (!followUp) return null;
-    if (level >= 1) return null;
-    if (!shouldShowFollowUp(optId)) return null;
+    if (!followUp || level >= 1 || !shouldShow(optId)) return null;
 
     return (
       <QuestionItem
@@ -49,6 +47,8 @@ const QuestionItem = ({
       />
     );
   };
+
+  const indent = level * 3;
 
   return (
     <Box sx={{ pl: indent }}>

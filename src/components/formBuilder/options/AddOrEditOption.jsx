@@ -36,7 +36,6 @@ const AddOrEditOption = ({
 
   const handleOptionDialogClose = () => {
     setOptionsInput('');
-    setEditQuestionType(editQuestionType);
     setOptionDialog(false);
   };
 
