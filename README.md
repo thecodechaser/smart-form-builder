@@ -96,7 +96,7 @@ Give a ⭐️ if you like this project!
 
 ## Acknowledgments
 
-- Inspiration: Xane AI
+- Inspiration: Microverse
 
 ## 📝 License
 

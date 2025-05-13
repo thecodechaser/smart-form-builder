@@ -2,12 +2,12 @@
 export const QUESTION_BANK = [
   {
     id: 'q1',
-    text: 'How was your initial interaction with the team at Xane AI?',
+    text: 'How was your initial interaction with the team at this Company?',
     type: 'objective',
   },
   {
     id: 'q2',
-    text: 'Would you recommend your friends to interview at Xane AI, based on your experience so far?',
+    text: 'Would you recommend your friends to interview at this Company, based on your experience so far?',
     type: 'objective',
   },
   {
@@ -72,7 +72,7 @@ export const QUESTION_BANK = [
   },
   {
     id: 'q15',
-    text: 'How likely are you to consider working with Xane AI in the future?',
+    text: 'How likely are you to consider working with this Company in the future?',
     type: 'objective',
   },
   {
