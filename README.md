@@ -24,7 +24,7 @@
 
 ## Live version
 
-[Smart Form Builder](https://form-builder-codechaser.netlify.app/)
+[Smart Form Builder](https://form-builder.thecodechaser.com)
 
 ## Getting Started
 
